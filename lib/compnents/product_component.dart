@@ -9,28 +9,49 @@ class ProductComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 400,
-      decoration: BoxDecoration(
-          color: kSecondaryColor, borderRadius: BorderRadius.circular(40)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding: const EdgeInsets.only(top: 50),
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          Image.network(
-            productModel.image,
-            fit: BoxFit.fill,
-            height: 250,
-            width: 250,
+          Card(
+            color: kSecondaryColor,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    productModel.name,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "\$${productModel.price}",
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
-          Text(
-            productModel.name,
-            style: const TextStyle(color: Colors.white, fontSize: 30),
-          ),
-          productModel.price == null
-              ? const Text("")
-              : Text("${productModel.price} \$",
-                  style: const TextStyle(color: Colors.white, fontSize: 20)),
+          Positioned(
+            right: 20,
+            top: -50,
+            child: Image.network(
+              productModel.image,
+              height: 110,
+              width: 110,
+            ),
+          )
         ],
       ),
     );

@@ -57,22 +57,19 @@ class _OneCategoryScreenState extends State<OneCategoryScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return ProductComponent(
+              child: GridView.builder(
+                itemCount: myList!.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
+                  return ProductComponent(
                       productModel: ProductModel(
-                          image: myList![index].image,
-                          name: myList![index].name,
-                          price: myList![index].price.toString()),
-                    );
-                  },
-                  separatorBuilder: (context, i) {
-                    return const SizedBox(
-                      height: 15,
-                    );
-                  },
-                  itemCount: myList!.length),
-            ),
+                          image: "${myList![index].image}",
+                          name: "${myList![index].name}",
+                          price: "${myList![index].price}"));
+                },
+              )),
     );
   }
 }

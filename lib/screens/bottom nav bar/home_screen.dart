@@ -26,20 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
               return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasData) {
-              return ListView.separated(
-                  itemBuilder: (context, index) {
-                    return ProductComponent(
-                        productModel: ProductModel(
-                            image: "${snapshot.data!.docs[index]["image"]}",
+              return GridView.builder(
+                itemCount: snapshot.data!.docs.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
+                  return ProductComponent(productModel: ProductModel(image: "${snapshot.data!.docs[index]["image"]}",
                             name: "${snapshot.data!.docs[index]["name"]}",
                             price: "${snapshot.data!.docs[index]["price"]}"));
-                  },
-                  separatorBuilder: (context, i) {
-                    return const SizedBox(
-                      height: 15,
-                    );
-                  },
-                  itemCount: snapshot.data!.docs.length);
+                },
+              );
             } else {
               return const Center(child: Text("There is an error!"));
             }
